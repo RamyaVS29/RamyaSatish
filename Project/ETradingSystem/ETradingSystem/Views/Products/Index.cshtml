@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ETradingSystem.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Product List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<form action="@Url.Action("GetProductsByVendorId", "Products")" method="get">
+    <div class="form-group">
+        <label for="vendorId">Enter Vendor ID:</label>
+        <input type="text" name="vendorId" id="vendorId" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Get Products</button>
+</form>
+
+<!-- Product table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Price</th>
+            <th>Available Stock</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th>Is Deleted</th>
+            <th>Vendor</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Product_Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Brand)</td>
+                <td>@Html.DisplayFor(modelItem => item.Color)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Available_Stock)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.ImageFileName)</td>
+                <td>@Html.DisplayFor(modelItem => item.isdeleted)</td>
+                <td>@Html.DisplayFor(modelItem => item.Vendor.Vendor_Name)</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.Product_Id })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Details", new { id = item.Product_Id })" class="btn btn-info">Details</a>
+                    <a href="@Url.Action("Delete", new { id = item.Product_Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
